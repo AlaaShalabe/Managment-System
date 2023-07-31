@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
+use Stevebauman\Purify\Facades\Purify;
 
 class FileController extends Controller
 {
@@ -19,7 +19,10 @@ class FileController extends Controller
     public function index(Request $request)
     {
         $files = File::all();
-        return view('files.index', compact('files'));
+        if (!$files->isEmpty()) {
+            return view('files.index', compact('files'));
+        }
+        return redirect('/')->with('warning', 'No File yet! to add new File clicke ');
     }
 
     /**
@@ -38,7 +41,7 @@ class FileController extends Controller
 
         $data = $request->validate([
             'phone' => 'required|unique:files,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-            'name' => 'required|string',
+            'name' => 'required|string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
             'glasses_type' => 'required|string',
             'client' => 'required|in:local,VIP',
             'degree' => 'required|string',
@@ -50,11 +53,10 @@ class FileController extends Controller
             'comments' => 'required|string',
 
         ]);
-        // dd($request);
-
+        $comments = Purify::clean($request->input('comments'));
         $file = File::create($data);
 
-        return redirect()->route('files.index');
+        return redirect()->route('files.index')->withStatus(__('File successfully created.'));
     }
 
     /**
@@ -64,7 +66,7 @@ class FileController extends Controller
     {
         return view('files.show', compact('file'));
     }
-
+    // show all invoices related to a file
     public function files(File $file)
     {
         return view('files.files', compact('file'));
@@ -84,7 +86,7 @@ class FileController extends Controller
     public function update(Request $request, File $file)
     {
         $data = $request->validate([
-            'name' => 'string',
+            'name' => 'string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
             'phone' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:9', [Rule::unique('files')],
             'comments' => 'string',
             'degree' => 'string',
@@ -112,7 +114,7 @@ class FileController extends Controller
         $file->glasses_type = $request->input('glasses_type');
         $file->save();
 
-        return redirect()->route('files.index')->with('status', 'File successfully updated.');
+        return redirect()->back()->withStatus(__('File successfully updated.'));
     }
 
     /**
@@ -120,7 +122,11 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        $file->delete();
-        return redirect()->route('files.index')->with('status', 'File successfully deleted.');
+        if ($file) {
+
+            $file->delete();
+            return redirect()->route('files.index')->withStatus(__('File successfully deleted.'));
+        }
+        return redirect()->route('files.index')->withStatus(__('Invalid File.'));
     }
 }

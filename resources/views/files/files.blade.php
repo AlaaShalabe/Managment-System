@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'invoices'])
+@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'files'])
 
 @section('content')
     <div class="content">
@@ -6,22 +6,16 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        {{-- <div class="card-header card-header-primary">
-                            <h4 class="card-title ">Simple Table</h4>
-                            <p class="card-category"> Here is a subtitle for this table</p>
-                        </div> --}}
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4 class="card-title "><strong>{{ $file->invoices->count() }} invoices for
-                                            <u>{{ $file->phone }} </u> number</strong></h4>
+                                    <h4 class="card-title "><strong>{{ $file->invoices->count() }} bill to
+                                            {{ $file->name }} for phone number<u> {{ $file->phone }} </u></strong>
+                                    </h4>
                                     <p class="card-category"> All bills affiliated with
-                                        <strong><u>{{ $file->phone }}</u></strong>
-                                        number
+                                        phone number <strong><u>{{ $file->phone }}</u></strong>
                                     </p>
-                                    {{-- <h4 class="card-title">Users</h4> --}}
                                 </div>
-
                             </div>
                         </div>
                         <div class="card-body">
@@ -82,20 +76,25 @@
                                                     <td class="text-primary">
                                                         {{ $invoice->price }}
                                                     </td>
-                                                    <td class="text-right">
-                                                        <div class="dropdown">
-                                                            <a class="btn btn-sm btn-icon-only text-light" href="#"
-                                                                role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                                aria-expanded="false">
-                                                                <i class="fas fa-ellipsis-v"></i>
+                                                    <form action="{{ route('invoices.destroy', $invoice) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('delete')
+                                                        <td class="td-actions text-right">
+                                                            <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"
+                                                                class="btn btn-info btn-sm btn-round btn-icon">
+                                                                <i class="tim-icons icon-tv-2"></i>
                                                             </a>
-                                                            <div
-                                                                class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('invoices.edit', $invoice) }}">Edit</a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                            <a href="{{ route('invoices.edit', $invoice) }}" rel="tooltip"
+                                                                class="btn btn-success btn-sm btn-round btn-icon">
+                                                                <i class="tim-icons icon-pencil"></i>
+                                                            </a>
+                                                            <button type="submit" rel="tooltip"
+                                                                class="btn btn-danger btn-sm btn-round btn-icon">
+                                                                <i class="tim-icons icon-simple-remove"></i>
+                                                            </button>
+                                                        </td>
+                                                    </form>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -104,13 +103,7 @@
                             </div>
                             <div class="card-header">
                                 <div class="row">
-                                    <div class="col-8">
-                                        {{-- <h4 class="card-title ">All invoices</h4>
-                                        <p class="card-category"> Here is a subtitle for this table</p> --}}
-                                        {{-- <h4 class="card-title">Users</h4> --}}
-                                    </div>
-
-                                    <div class="col-4 text-right">
+                                    <div class="col-12 text-right">
                                         <a href="{{ route('files.index') }}" class="btn btn-sm btn-primary">Back</a>
                                     </div>
                                 </div>

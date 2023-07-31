@@ -12,14 +12,8 @@ class SearchController extends Controller
         $request->validate([
             'phone' => 'required|exists:files,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:9'
         ]);
-        //  dd($request);
-
         $phone = $request->input('phone');
-        $phoneQuary = File::query();
-        if ($phone) {
-            $phoneQuary = $phoneQuary->where('phone', 'LIKE', '%' . $phone . '%');
-        }
-        $phoneQuary = $phoneQuary->get();
-        return  $phoneQuary;
+        $file = File::where('phone', 'LIKE', '%' . $phone . '%')->first();
+        return view('files.files', compact('file'));
     }
 }

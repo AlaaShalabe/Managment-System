@@ -1,4 +1,4 @@
-@extends('layouts.app', ['page' => __('Typography'), 'pageSlug' => 'typography'])
+@extends('layouts.app', ['page' => __('Typography'), 'pageSlug' => 'invoices'])
 
 @section('content')
     <div class="row">
@@ -34,7 +34,7 @@
                 </div>
                 <div class="card-body">
                     <div class="typography-line">
-                       
+
                     </div>
                     <div class="typography-line">
                         <h4>

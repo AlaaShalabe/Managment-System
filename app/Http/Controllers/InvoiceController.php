@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Stevebauman\Purify\Facades\Purify;
 
 class InvoiceController extends Controller
 {
@@ -15,6 +16,10 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
+        $files = File::all();
+        if ($files->isEmpty()) {
+            return redirect('/')->with('warning', 'No File yet! to create new File pleace clicke ');
+        }
         return view('invoices.index', compact('invoices'));
     }
     public function create()
@@ -27,7 +32,7 @@ class InvoiceController extends Controller
     {
 
         $data = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
             'file_id' => 'required|exists:files,id',
             'glasses_type' => 'required|string',
             'client' => 'required|in:local,VIP',
@@ -39,12 +44,10 @@ class InvoiceController extends Controller
             'the_rest' => 'required|numeric',
             'comments' => 'required|string',
         ]);
-
-
-        // dd($request);
+        Purify::clean($request->input('comments'));
         $invoice = Invoice::create($data);
 
-        return redirect()->route('invoices.index');
+        return redirect()->route('invoices.index')->withStatus(__('invoice successfully created.'));
     }
 
     public function show(Invoice $invoice)
@@ -61,7 +64,7 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $data = $request->validate([
-            'name' => 'string',
+            'name' => 'string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
             'comments' => 'string',
             'degree' => 'string',
             'client' => 'in:local,VIP',
@@ -73,10 +76,9 @@ class InvoiceController extends Controller
             'glasses_type' => 'string',
 
         ]);
-        //  dd($request);
 
         $invoice->name = $request->input('name');
-        $invoice->comments = $request->input('comments');
+        $invoice->comments =  Purify::clean($request->input('comments'));
         $invoice->degree = $request->input('degree');
         $invoice->client = $request->input('client');
         $invoice->status = $request->input('status');
@@ -87,21 +89,27 @@ class InvoiceController extends Controller
         $invoice->glasses_type = $request->input('glasses_type');
         $invoice->save();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice successfully updated.');
+        return redirect()->route('invoices.index')->withStatus(__('invoice successfully updated.'));
     }
 
     public function destroy(Invoice $invoice)
     {
-        $invoice->delete();
-        return redirect()->route('invoices.index')->with('success', 'Invoice successfully deleted.');
+        if ($invoice) {
+
+            $invoice->delete();
+            return redirect()->route('invoices.index')->withStatus(__('invoice successfully deleted.'));
+        }
+        return redirect()->back()->withStatus(__('Invalid invoice.'));
     }
 
     public function destroyMultiple(Request $request)
     {
-
-        $ids = $request->input('ids');
-        Invoice::whereIn('id', $ids)->delete();
-
-        return redirect()->back()->with('success', 'Selected Invoices have been deleted.');
+        if ($request->input('ids')) {
+            $ids = $request->input('ids');
+            Invoice::whereIn('id', $ids)->delete();
+            return redirect()->back()->withStatus(__('Selected Invoices have been deleted.'));
+        } else {
+            return redirect()->back()->withStatus(__('Nothing Selected to delete.'));
+        }
     }
 }
