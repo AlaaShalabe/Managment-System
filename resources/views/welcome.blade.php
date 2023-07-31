@@ -21,6 +21,12 @@
                         File</a>.
                 </div>
             @endif
+            @if (session($key ?? 'warning-invoice'))
+                <div class="alert alert-default" role="alert">
+                    {{ session($key ?? 'warning-invoice') }} <a href="{{ route('invoices.create') }}" class="alert-link">Add
+                        invoice</a>.
+                </div>
+            @endif
 
         </div>
     </div>

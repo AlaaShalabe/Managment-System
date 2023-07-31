@@ -24,6 +24,11 @@
                         {{-- file --}}
                         <div class="form-group col-md-4">
                             <label for="inputState">File</label>
+                            <div class="form-group">
+                                <label for="disabledTextInput"></label>
+                                <input type="text" id="disabledTextInput" class="form-control"
+                                    placeholder="Disabled input">
+                            </div>
                             <select name="file_id" id="inputState" class="form-control">
                                 @foreach ($files as $file)
                                     <option value="{{ $file->id }}" {{ $file->id == old('file_id') ? 'selected' : '' }}>
