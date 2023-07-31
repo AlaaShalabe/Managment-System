@@ -5,9 +5,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="title">{{ _('Create File') }}</h5>
+                    <h5 class="title">Create invoice for {{ $file->phone }}</h5>
                 </div>
-                <form method="post" action="{{ route('invoices.store') }}" autocomplete="off">
+                <form method="post" action="{{ route('invoices.store', $file) }}" autocomplete="off">
                     <div class="card-body">
                         @csrf
 
@@ -20,22 +20,6 @@
                                 class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Name"
                                 value="{{ old('name') }}">
                             @include('alerts.feedback', ['field' => 'name'])
-                        </div>
-                        {{-- file --}}
-                        <div class="form-group col-md-4">
-                            <label for="inputState">File</label>
-                            <div class="form-group">
-                                <label for="disabledTextInput"></label>
-                                <input type="text" id="disabledTextInput" class="form-control"
-                                    placeholder="Disabled input">
-                            </div>
-                            <select name="file_id" id="inputState" class="form-control">
-                                @foreach ($files as $file)
-                                    <option value="{{ $file->id }}" {{ $file->id == old('file_id') ? 'selected' : '' }}>
-                                        {{ $file->phone }}
-                                    </option>
-                                @endforeach
-                            </select>
                         </div>
                         {{-- glasses_type --}}
                         <div class="form-group @error('glasses_type') is-danger @enderror col-md-4">

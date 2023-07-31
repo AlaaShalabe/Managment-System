@@ -45,16 +45,8 @@ class FileController extends Controller
         return redirect()->route('files.index')->withStatus(__('File successfully created.'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(File $file)
-    {
-        return view('files.show', compact('file'));
-    }
-    
     // show all invoices related to a file
-    public function files(File $file)
+    public function invoices(File $file)
     {
         return view('files.files', compact('file'));
         // if (!$file->invoices->isEmpty()) {
@@ -84,7 +76,7 @@ class FileController extends Controller
         $file->phone = $request->input('phone');
         $file->save();
 
-        return redirect()->back()->withStatus(__('File successfully updated.'));
+        return redirect()->route('files.index')->withStatus(__('File successfully updated.'));
     }
 
     /**

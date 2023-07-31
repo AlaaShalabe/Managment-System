@@ -22,17 +22,15 @@ class InvoiceController extends Controller
     //     }
     //     return view('invoices.index', compact('invoices'));
     // }
-    public function create()
+    public function create(File $file)
     {
-        $files = File::all();
-        return view('invoices.create', compact('files'));
+        return view('invoices.create', compact('file'));
     }
 
     public function store(Request $request, File $file)
     {
         $data = $request->validate([
             'name' => 'required|string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
-            'file_id' => 'required|exists:files,id',
             'glasses_type' => 'required|string',
             'client' => 'required|in:local,VIP',
             'degree' => 'required|string',
@@ -44,7 +42,7 @@ class InvoiceController extends Controller
             'comments' => 'required|string',
         ]);
         Purify::clean($request->input('comments'));
-        // dd($request);
+        $data['file_id'] = $file->id;
         $invoice = Invoice::create($data);
         return redirect()->back()->withStatus(__('invoice successfully created.'));
     }
@@ -56,8 +54,8 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice)
     {
-        $files = File::all();
-        return view('invoices.edit', compact('invoice', 'files'));
+        // $files = File::all();
+        return view('invoices.edit', compact('invoice'));
     }
 
     public function update(Request $request, Invoice $invoice)
@@ -88,7 +86,7 @@ class InvoiceController extends Controller
         $invoice->glasses_type = $request->input('glasses_type');
         $invoice->save();
 
-        return redirect()->route('invoices.index')->withStatus(__('invoice successfully updated.'));
+        return redirect()->back()->withStatus(__('invoice successfully updated.'));
     }
 
     public function destroy(Invoice $invoice)

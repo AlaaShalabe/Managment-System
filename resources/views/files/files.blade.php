@@ -12,9 +12,7 @@
                                     <h4 class="card-title "><strong>{{ $file->invoices->count() }} bill for phone number<u>
                                                 {{ $file->phone }} </u></strong>
                                     </h4>
-                                    <p class="card-category"> All bills affiliated with
-                                        phone number <strong><u>{{ $file->phone }}</u></strong>
-                                    </p>
+
                                 </div>
                             </div>
                         </div>
@@ -27,8 +25,10 @@
                                         <button class="btn btn-danger btn-fab btn-icon btn-round" type="submit">
                                             <i class="tim-icons icon-trash-simple"> </i>
                                         </button>
-                                        <a href="{{ route('invoices.create') }}" class="btn btn-sm btn-primary">Add
-                                            invoice</a>
+                                        <a href="{{ route('invoices.create', $file) }}"
+                                            class="btn btn-primary btn-fab btn-icon btn-round">
+                                            <i class="tim-icons icon-simple-add"> </i>
+                                        </a>
                                     </div>
                                     <table class="table">
                                         <thead class=" text-primary">
@@ -92,7 +92,8 @@
                                                                 class="btn btn-info btn-sm btn-round btn-icon">
                                                                 <i class="tim-icons icon-tv-2"></i>
                                                             </a>
-                                                            <a href="{{ route('invoices.edit', $invoice) }}" rel="tooltip"
+                                                            <a href="{{ route('invoices.edit', $invoice, $file) }}"
+                                                                rel="tooltip"
                                                                 class="btn btn-success btn-sm btn-round btn-icon">
                                                                 <i class="tim-icons icon-pencil"></i>
                                                             </a>

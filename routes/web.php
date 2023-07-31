@@ -22,24 +22,19 @@ Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('aut
 // files
 Route::resource('files', FileController::class);
 //shwo all invoices related to file
-Route::get('/files/files/{file}', [FileController::class, 'files'])->name('files.files');
+Route::get('/files/invoices/{file}', [FileController::class, 'invoices'])->name('files.files');
 //searsh using phone number
 Route::post('/search', [SearchController::class, 'index'])->name('search.index');
 // invoices
-Route::resource('invoices', InvoiceController::class);
+Route::resource('invoices', InvoiceController::class, ['except' => ['create', 'store']]);
+Route::get('invoices/create/{file}', [InvoiceController::class, 'create'])->name('invoices.create');
+Route::post('invoices/store/{file}', [InvoiceController::class, 'store'])->name('invoices.store');
 //delete multi invoices
 Route::delete('invoices/destroyMultiple', [InvoiceController::class, 'destroyMultiple'])->name('invoices.destroyMultiple');
-Auth::routes();
-
 
 Auth::routes();
 
-
-
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-    Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
+Route::get('/icons', function () {
+    return view('pages.icons');
 });
+Auth::routes();

@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="title">{{ _('Edit invoice') }}</h5>
+                    <h5 class="title">{{ _('Edit invoice') }} {{ $invoice->file->phone }}</h5>
                 </div>
                 <form method="post" action="{{ route('invoices.update', $invoice) }}" autocomplete="off">
                     <div class="card-body">
@@ -20,19 +20,6 @@
                                 class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Name"
                                 value="{{ old('name', $invoice->name) }}">
                             @include('alerts.feedback', ['field' => 'name'])
-                        </div>
-                        {{-- file --}}
-                        <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }} col-md-4">
-                            <label for="inputState">File</label>
-                            <select name="file_id" id="inputState"
-                                class="form-control{{ $errors->has('file_id') ? ' has-danger' : '' }}">
-                                @foreach ($files as $file)
-                                    <option value="{{ $file->id }}" {{ $file->id == old('file_id') ? 'selected' : '' }}>
-                                        {{ $file->phone }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @include('alerts.feedback', ['field' => 'file_id'])
                         </div>
                         {{-- glasses_type --}}
                         <div class="form-group @error('glasses_type') is-danger @enderror col-md-4">
@@ -121,7 +108,7 @@
                             <label>{{ _('paid up') }}</label>
                             <input type="number" name="paid_up"
                                 class="form-control{{ $errors->has('paid_up') ? ' is-invalid' : '' }}" placeholder="200000"
-                                value="{{ old('paid_up', $invice->paid_up) }}">
+                                value="{{ old('paid_up', $invoice->paid_up) }}">
                             @include('alerts.feedback', ['field' => 'paid_up'])
                         </div>
                         {{-- the_rest --}}

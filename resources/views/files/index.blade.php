@@ -56,7 +56,7 @@
                                                         @csrf
                                                         @method('delete')
                                                         <td class="td-actions text-right">
-                                                            <a href="{{ route('files.show', $file) }}" rel="tooltip"
+                                                            <a href="{{ route('files.files', $file) }}" rel="tooltip"
                                                                 class="btn btn-info btn-sm btn-round btn-icon">
                                                                 <i class="tim-icons icon-tv-2"></i>
                                                             </a>
