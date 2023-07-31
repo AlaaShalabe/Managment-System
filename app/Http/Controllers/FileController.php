@@ -50,11 +50,11 @@ class FileController extends Controller
             'comments' => 'required|string',
 
         ]);
-        dd($request);
+        // dd($request);
 
         $file = File::create($data);
 
-        return view('files.index');
+        return redirect()->route('files.index');
     }
 
     /**
@@ -64,6 +64,7 @@ class FileController extends Controller
     {
         return view('files.show', compact('file'));
     }
+
     public function files(File $file)
     {
         return view('files.files', compact('file'));

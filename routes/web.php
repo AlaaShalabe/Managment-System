@@ -36,6 +36,7 @@ Route::get('/invoices/edit/{invoice}', [InvoiceController::class, 'edit'])->name
 Route::put('/invoices/update/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
 Route::get('/invoices/show/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
 Route::delete('/invoices/delete/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+Route::delete('invoices/destroyMultiple', [InvoiceController::class, 'destroyMultiple'])->name('invoices.destroyMultiple');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -43,7 +44,9 @@ Auth::routes();
 
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
-
+Route::get('/icon', function () {
+    return view('pages.icons');
+});
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);

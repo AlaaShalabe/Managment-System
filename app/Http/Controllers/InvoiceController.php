@@ -44,7 +44,7 @@ class InvoiceController extends Controller
         // dd($request);
         $invoice = Invoice::create($data);
 
-        return view('invoices.index');
+        return redirect()->route('invoices.index');
     }
 
     public function show(Invoice $invoice)
@@ -87,12 +87,21 @@ class InvoiceController extends Controller
         $invoice->glasses_type = $request->input('glasses_type');
         $invoice->save();
 
-        return redirect()->route('invoices.index')->with('status', 'Invoice successfully updated.');
+        return redirect()->route('invoices.index')->with('success', 'Invoice successfully updated.');
     }
 
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
-        return redirect()->route('invoices.index')->with('status', 'Invoice successfully deleted.');
+        return redirect()->route('invoices.index')->with('success', 'Invoice successfully deleted.');
+    }
+
+    public function destroyMultiple(Request $request)
+    {
+
+        $ids = $request->input('ids');
+        Invoice::whereIn('id', $ids)->delete();
+
+        return redirect()->back()->with('success', 'Selected Invoices have been deleted.');
     }
 }
