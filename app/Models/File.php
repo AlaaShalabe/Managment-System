@@ -9,17 +9,7 @@ class File extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'phone',
-        'Lenses_type',
-        'degree',
-        'client',
-        'glasses_type',
-        'status',
-        'the_rest',
-        'paid_up',
-        'price',
-        'comments',
     ];
 
     public function invoices()

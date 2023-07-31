@@ -24,40 +24,34 @@
                                     <table class="table">
                                         <thead class=" text-primary">
                                             <th>
+
+                                            </th>
+                                            <th>
                                                 Phone
                                             </th>
                                             <th>
-                                                Name
+                                                Created at
                                             </th>
                                             <th>
-                                                Cleint
+                                                Count of invoices
                                             </th>
-                                            <th>
-                                                Status
-                                            </th>
-                                            <th>
-                                                Price
-                                            </th>
+
                                         </thead>
                                         <tbody>
                                             @foreach ($files as $file)
                                                 <tr>
-
+                                                    <td>
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('files.files', $file) }}"> {{ $file->phone }}</a>
                                                     </td>
                                                     <td>
-                                                        {{ $file->name }}
+                                                        {{ $file->created_at->format('D M Y') }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->client }}
+                                                        {{ $file->invoices->count() }}
                                                     </td>
-                                                    <td>
-                                                        {{ $file->status }}
-                                                    </td>
-                                                    <td class="text-primary">
-                                                        {{ $file->price }}
-                                                    </td>
+
                                                     <form action="{{ route('files.destroy', $file) }}" method="POST">
                                                         @csrf
                                                         @method('delete')

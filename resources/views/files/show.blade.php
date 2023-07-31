@@ -29,74 +29,10 @@
                     </div>
                     <div class="typography-line">
                         <h4>
-                            <span>name</span>{{ $file->name }}
-                        </h4>
-                    </div>
-                    <div class="typography-line">
-                        <h4>
-                            <span>Glasses type</span>{{ $file->glasses_type }}
-                        </h4>
-                    </div>
-                    <div class="typography-line">
-                        <h4>
-                            <span>Client</span>{{ $file->client }}
-                        </h4>
-                    </div>
-                    <div class="typography-line">
-                        <h4>
-                            <span>Degree of lenses</span>{{ $file->degree }}
-                        </h4>
-                    </div>
-                    <div class="typography-line">
-                        <h4>
-                            <span>Lenses type</span>{{ $file->Lenses_type }}
-                        </h4>
-                    </div>
-                    <div class="typography-line">
-                        <h4>
-                            <span>status</span>{{ $file->status }}
+                            <span>Created at</span>{{ $file->created_at->format('D M Y') }}
                         </h4>
                     </div>
 
-                    <div class="typography-line">
-                        <span>Comments</span>
-                        <blockquote>
-                            <p class="blockquote blockquote-primary">
-                                {{ $file->comments }}
-                                <br>
-                                <br>
-
-                            </p>
-                        </blockquote>
-                    </div>
-
-                    <div class="typography-line">
-                        <span>Lists</span>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h5>Price</h5>
-                                <ul class="list-unstyled">
-                                    <li>{{ $file->price }}</li>
-
-                                </ul>
-                            </div>
-                            <div class="col-md-3">
-                                <h5>paid_up</h5>
-                                <ul class="list-unstyled">
-                                    <li>{{ $file->paid_up }}</li>
-
-                                </ul>
-
-                            </div>
-                            <div class="col-md-3">
-                                <h5>the_rest</h5>
-                                <ul class="list-unstyled">
-                                    <li>{{ $file->the_rest }}</li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

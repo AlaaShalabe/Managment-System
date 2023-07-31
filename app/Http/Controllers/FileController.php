@@ -38,24 +38,10 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'phone' => 'required|unique:files,phone|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
-            'name' => 'required|string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
-            'glasses_type' => 'required|string',
-            'client' => 'required|in:local,VIP',
-            'degree' => 'required|string',
-            'Lenses_type' => 'required|string',
-            'status' => 'required|in:received,not_received',
-            'price' => 'required|numeric',
-            'paid_up' => 'required|numeric',
-            'the_rest' => 'required|numeric',
-            'comments' => 'required|string',
-
         ]);
-        $comments = Purify::clean($request->input('comments'));
         $file = File::create($data);
-
         return redirect()->route('files.index')->withStatus(__('File successfully created.'));
     }
 
@@ -66,10 +52,15 @@ class FileController extends Controller
     {
         return view('files.show', compact('file'));
     }
+    
     // show all invoices related to a file
     public function files(File $file)
     {
         return view('files.files', compact('file'));
+        // if (!$file->invoices->isEmpty()) {
+        //     return view('files.files', compact('file'));
+        // }
+        // return redirect('/')->with('warning-invoice', 'No invoices yet! to add new invoice clicke ');
     }
 
     /**
@@ -86,32 +77,11 @@ class FileController extends Controller
     public function update(Request $request, File $file)
     {
         $data = $request->validate([
-            'name' => 'string|regex:/^[A-Za-z]+(\s[A-Za-z]+)*$/',
             'phone' => 'regex:/^([0-9\s\-\+\(\)]*)$/|min:9', [Rule::unique('files')],
-            'comments' => 'string',
-            'degree' => 'string',
-            'client' => 'in:local,VIP',
-            'status' => 'in:received,not_received',
-            'the_rest' => 'numeric',
-            'paid_up' => 'numeric',
-            'price' => 'numeric',
-            'Lenses_type' => 'string',
-            'glasses_type' => 'string',
 
         ]);
         //  dd($request);
-
-        $file->name = $request->input('name');
         $file->phone = $request->input('phone');
-        $file->comments = $request->input('comments');
-        $file->degree = $request->input('degree');
-        $file->client = $request->input('client');
-        $file->status = $request->input('status');
-        $file->the_rest = $request->input('the_rest');
-        $file->paid_up = $request->input('paid_up');
-        $file->price = $request->input('price');
-        $file->Lenses_type = $request->input('Lenses_type');
-        $file->glasses_type = $request->input('glasses_type');
         $file->save();
 
         return redirect()->back()->withStatus(__('File successfully updated.'));

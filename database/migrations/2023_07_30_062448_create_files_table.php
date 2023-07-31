@@ -14,16 +14,6 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->id();
             $table->string('phone')->unique();
-            $table->string('name');
-            $table->string('glasses_type');
-            $table->enum('client', ['local', 'VIP']);
-            $table->string('degree');
-            $table->string('Lenses_type');
-            $table->string('comments');
-            $table->float('price');
-            $table->float('paid_up')->default(0);
-            $table->float('the_rest')->default(0);
-            $table->enum('status', ['received', 'not_received']);
             $table->timestamps();
         });
     }

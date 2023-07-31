@@ -9,8 +9,8 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4 class="card-title "><strong>{{ $file->invoices->count() }} bill to
-                                            {{ $file->name }} for phone number<u> {{ $file->phone }} </u></strong>
+                                    <h4 class="card-title "><strong>{{ $file->invoices->count() }} bill for phone number<u>
+                                                {{ $file->phone }} </u></strong>
                                     </h4>
                                     <p class="card-category"> All bills affiliated with
                                         phone number <strong><u>{{ $file->phone }}</u></strong>
@@ -35,6 +35,9 @@
 
                                             <th>
 
+                                            </th>
+                                            <th>
+                                                Created_at
                                             </th>
                                             <th>
                                                 Name
@@ -64,8 +67,12 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('invoices.show', $invoice) }}">
-                                                            {{ $invoice->name }}</a>
+
+                                                        {{ $invoice->created_at->format('D M Y') }}
+                                                    </td>
+                                                    <td>
+
+                                                        {{ $invoice->name }}
                                                     </td>
                                                     <td>
                                                         {{ $invoice->client }}
