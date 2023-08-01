@@ -17,6 +17,7 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            @include('alerts.success')
                             <div class="table-responsive">
                                 <form action="{{ route('invoices.destroyMultiple') }}" method="POST">
                                     @csrf

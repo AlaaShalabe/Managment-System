@@ -36,7 +36,7 @@ class InvoiceController extends Controller
         Purify::clean($request->input('comments'));
         $data['file_id'] = $file->id;
         $invoice = Invoice::create($data);
-        return redirect()->route('files.index')->withStatus(__('invoice successfully created.'));
+        return redirect()->route('files.files', ['file' => $file])->withStatus(__('invoice successfully created.'));
     }
 
     public function show(Invoice $invoice, File $file)
@@ -78,7 +78,7 @@ class InvoiceController extends Controller
         $invoice->glasses_type = $request->input('glasses_type');
         $invoice->save();
 
-        return redirect()->back()->withStatus(__('invoice successfully updated.'));
+        return redirect()->route('files.files')->withStatus(__('invoice successfully updated.'));
     }
 
     public function destroy(Invoice $invoice, File $file)
