@@ -13,15 +13,7 @@ class InvoiceController extends Controller
     {
         $this->middleware('auth');
     }
-    // public function index()
-    // {
-    //     $invoices = Invoice::all();
-    //     $files = File::all();
-    //     if ($files->isEmpty()) {
-    //         return redirect('/')->with('warning', 'No File yet! to create new File pleace clicke ');
-    //     }
-    //     return view('invoices.index', compact('invoices'));
-    // }
+
     public function create(File $file)
     {
         return view('invoices.create', compact('file'));
@@ -44,17 +36,17 @@ class InvoiceController extends Controller
         Purify::clean($request->input('comments'));
         $data['file_id'] = $file->id;
         $invoice = Invoice::create($data);
-        return redirect()->back()->withStatus(__('invoice successfully created.'));
+        return redirect()->route('files.index')->withStatus(__('invoice successfully created.'));
     }
 
-    public function show(Invoice $invoice)
+    public function show(Invoice $invoice, File $file)
     {
+
         return view('invoices.show', compact('invoice'));
     }
 
     public function edit(Invoice $invoice)
     {
-        // $files = File::all();
         return view('invoices.edit', compact('invoice'));
     }
 
@@ -89,22 +81,22 @@ class InvoiceController extends Controller
         return redirect()->back()->withStatus(__('invoice successfully updated.'));
     }
 
-    public function destroy(Invoice $invoice)
+    public function destroy(Invoice $invoice, File $file)
     {
         if ($invoice) {
-
             $invoice->delete();
-            return redirect()->route('invoices.index')->withStatus(__('invoice successfully deleted.'));
+            return redirect()->route('files.index')->withStatus(__('invoice successfully deleted.'));
         }
         return redirect()->back()->withStatus(__('Invalid invoice.'));
     }
 
     public function destroyMultiple(Request $request)
     {
-        if (!$request->input('ids')) {
+        dd($request);
+        if (!$request->input('ids', [])) {
             return redirect()->back()->withStatus(__('Nothing Selected to delete.'));
         } else {
-            $ids = $request->input('ids');
+            $ids = $request->input('ids', []);
             Invoice::whereIn('id', $ids)->delete();
             return redirect()->back()->withStatus(__('Selected Invoices have been deleted.'));
         }

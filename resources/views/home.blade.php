@@ -15,12 +15,15 @@
                 </div>
             </div>
             @include('alerts.success')
-            @if (session($key ?? 'warning'))
-                <div class="alert alert-default" role="alert">
-                    {{ session($key ?? 'warning') }} <a href="{{ route('files.create') }}" class="alert-link">Add
-                        File</a>.
-                </div>
-            @endif
+
+
+            <div class="alert alert-default" role="alert">
+                No invoices yet! to add new invoice clicke <a href="{{ route('invoices.create', $file) }}"
+                    class="alert-link">Add
+                    invoice</a>.
+            </div>
+
+
         </div>
     </div>
 @endsection

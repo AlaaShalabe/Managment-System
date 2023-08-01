@@ -48,11 +48,10 @@ class FileController extends Controller
     // show all invoices related to a file
     public function invoices(File $file)
     {
-        return view('files.files', compact('file'));
-        // if (!$file->invoices->isEmpty()) {
-        //     return view('files.files', compact('file'));
-        // }
-        // return redirect('/')->with('warning-invoice', 'No invoices yet! to add new invoice clicke ');
+        if (!$file->invoices->isEmpty()) {
+            return view('files.files', compact('file'));
+        }
+        return view('home', ['file' => $file])->with('warning-invoice', 'No invoices yet! to add new invoice clicke ');
     }
 
     /**
@@ -85,7 +84,6 @@ class FileController extends Controller
     public function destroy(File $file)
     {
         if ($file) {
-
             $file->delete();
             return redirect()->route('files.index')->withStatus(__('File successfully deleted.'));
         }

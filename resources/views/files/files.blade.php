@@ -55,7 +55,6 @@
                                         <tbody>
                                             @foreach ($file->invoices as $invoice)
                                                 <tr>
-
                                                     <td>
                                                         <div class="form-check form-check-inline">
                                                             <label class="form-check-label">
@@ -83,30 +82,23 @@
                                                     <td class="text-primary">
                                                         {{ $invoice->price }}
                                                     </td>
-                                                    <form action="{{ route('invoices.destroy', $invoice) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <td class="td-actions text-right">
-                                                            <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"
-                                                                class="btn btn-info btn-sm btn-round btn-icon">
-                                                                <i class="tim-icons icon-tv-2"></i>
-                                                            </a>
-                                                            <a href="{{ route('invoices.edit', $invoice, $file) }}"
-                                                                rel="tooltip"
-                                                                class="btn btn-success btn-sm btn-round btn-icon">
-                                                                <i class="tim-icons icon-pencil"></i>
-                                                            </a>
-                                                            <button type="submit" rel="tooltip"
-                                                                class="btn btn-danger btn-sm btn-round btn-icon">
-                                                                <i class="tim-icons icon-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </form>
+
+                                                    <td class="td-actions text-right">
+                                                        <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"
+                                                            class="btn btn-info btn-sm btn-round btn-icon">
+                                                            <i class="tim-icons icon-tv-2"></i>
+                                                        </a>
+                                                        <a href="{{ route('invoices.edit', $invoice) }}" rel="tooltip"
+                                                            class="btn btn-success btn-sm btn-round btn-icon">
+                                                            <i class="tim-icons icon-pencil"></i>
+                                                        </a>
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
+
                                 </form>
                             </div>
                             <div class="card-header">

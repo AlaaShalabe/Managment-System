@@ -27,10 +27,12 @@ Route::get('/files/invoices/{file}', [FileController::class, 'invoices'])->name(
 Route::post('/search', [SearchController::class, 'index'])->name('search.index');
 // invoices
 Route::resource('invoices', InvoiceController::class, ['except' => ['create', 'store']]);
+Route::delete('invoices/destroyMultiple', [InvoiceController::class, 'destroyMultiple'])->name('invoices.destroyMultiple');
+
 Route::get('invoices/create/{file}', [InvoiceController::class, 'create'])->name('invoices.create');
+Route::get('invoices/indax/{file}', [InvoiceController::class, 'index'])->name('invoices');
 Route::post('invoices/store/{file}', [InvoiceController::class, 'store'])->name('invoices.store');
 //delete multi invoices
-Route::delete('invoices/destroyMultiple', [InvoiceController::class, 'destroyMultiple'])->name('invoices.destroyMultiple');
 
 Auth::routes();
 

@@ -20,6 +20,7 @@
                                     <button class="btn btn-sm btn btn-danger animation-on-hover"
                                         type="submit">Delete</button>
                                     <a href="{{ route('invoices.edit', $invoice) }}" class="btn btn-sm btn-success">Edit</a>
+
                                 </form>
                             </div>
 
