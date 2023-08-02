@@ -32,7 +32,7 @@ class PermissionsSeeder extends Seeder
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
-        $role1 =   Role::create(['name' => 'super-Admin']);
+        $role1 =   Role::create(['name' => 'super Admin']);
         $role1->givePermissionTo('invoices-list');
         $role1->givePermissionTo('invoices-update');
         $role1->givePermissionTo('invoices-delete');

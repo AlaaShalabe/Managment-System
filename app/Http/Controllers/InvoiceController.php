@@ -95,11 +95,11 @@ class InvoiceController extends Controller
 
     public function destroyMultiple(Request $request)
     {
-        dd($request);
-        if (!$request->input('ids', [])) {
+        // dd($request);
+        if (!$request->input('ids')) {
             return redirect()->back()->withStatus(__('Nothing Selected to delete.'));
         } else {
-            $ids = $request->input('ids', []);
+            $ids = $request->input('ids');
             Invoice::whereIn('id', $ids)->delete();
             return redirect()->back()->withStatus(__('Selected Invoices have been deleted.'));
         }

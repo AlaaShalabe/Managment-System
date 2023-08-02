@@ -22,15 +22,11 @@ class UserController extends Controller
     {
         $users = User::where('id', '>', 1)->orderBy('id', 'DESC')->paginate(5);
         $roles = Role::all();
-        if ($roles->count() > 1) {
-            return view('users.index', compact('users'))
-                ->with('i', ($request->input('page', 1) - 1) * 5);
-        } else {
-            $message = Lang::get('messages.no_recorde', ['name' => 'Roles']);
+        if (!($roles->count() > 1)) {
+            $message = Lang::get('messages.create', ['name' => 'Roles']);
             $route = route('roles.create');
             return  redirect('/')->with(['warning' => $message, 'route' => $route]);
-        }
-        if ($users->count() > 1) {
+        } elseif ($users->count() > 1) {
 
             return view('users.index', compact('users'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
