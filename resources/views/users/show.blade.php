@@ -23,11 +23,9 @@
                                     @csrf
                                     @method('delete')
                                     <div class="col-12 text-right">
-                                        @can('invoices-delete')
-                                            <button class="btn btn-danger btn-fab btn-icon btn-round" type="submit">
-                                                <i class="tim-icons icon-trash-simple"> </i>
-                                            </button>
-                                        @endcan
+                                        <button class="btn btn-danger btn-fab btn-icon btn-round" type="submit">
+                                            <i class="tim-icons icon-trash-simple"> </i>
+                                        </button>
                                         <a href="{{ route('invoices.create', $file) }}"
                                             class="btn btn-primary btn-fab btn-icon btn-round">
                                             <i class="tim-icons icon-simple-add"> </i>
@@ -87,18 +85,14 @@
                                                     </td>
 
                                                     <td class="td-actions text-right">
-                                                        @can('invoices-list')
-                                                            <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"
-                                                                class="btn btn-info btn-sm btn-round btn-icon">
-                                                                <i class="tim-icons icon-tv-2"></i>
-                                                            </a>
-                                                        @endcan
-                                                        @can('invoices-update')
-                                                            <a href="{{ route('invoices.edit', $invoice) }}" rel="tooltip"
-                                                                class="btn btn-success btn-sm btn-round btn-icon">
-                                                                <i class="tim-icons icon-pencil"></i>
-                                                            </a>
-                                                        @endcan
+                                                        <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"
+                                                            class="btn btn-info btn-sm btn-round btn-icon">
+                                                            <i class="tim-icons icon-tv-2"></i>
+                                                        </a>
+                                                        <a href="{{ route('invoices.edit', $invoice) }}" rel="tooltip"
+                                                            class="btn btn-success btn-sm btn-round btn-icon">
+                                                            <i class="tim-icons icon-pencil"></i>
+                                                        </a>
 
                                                     </td>
                                                 </tr>

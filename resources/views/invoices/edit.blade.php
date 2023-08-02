@@ -36,12 +36,14 @@
                                     {{ old('glasses_type', $invoice->glasses_type) == 'Sunglasses' ? 'selected' : '' }}>
                                     Sunglasses</option>
                             </select>
-                            @include('alerts.feedback', ['field' => 'glasses_type'])
+                            @error('glasses_type')
+                                <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
+                            @enderror
                         </div>
 
 
                         {{-- client --}}
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 @error('client') is-danger @enderror">
                             <label for="inputState">Client</label>
                             <select name="client" id="inputState" class="form-control">
                                 <option value="local" {{ old('client', $invoice->client) == 'local' ? 'selected' : '' }}>
@@ -49,7 +51,9 @@
                                 <option value="VIP" {{ old('client', $invoice->client) == 'VIP' ? 'selected' : '' }}>VIP
                                 </option>
                             </select>
-                            @include('alerts.feedback', ['field' => 'client'])
+                            @error('client')
+                                <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
+                            @enderror
                         </div>
                         {{-- degree --}}
                         <div class="form-group{{ $errors->has('degree') ? ' has-danger' : '' }}">
@@ -60,7 +64,7 @@
                             @include('alerts.feedback', ['field' => 'degree'])
                         </div>
                         {{-- Lenses type --}}
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 @error('Lenses_type') is-danger @enderror">
                             <label for="inputState">Lenses type</label>
                             <select name="Lenses_type" id="inputState" class="form-control">
                                 <option value="Daily transparent medical"
@@ -76,12 +80,14 @@
                                     {{ old('Lenses_type', $invoice->Lenses_type) == 'Monthly medical color' ? 'selected' : '' }}>
                                     Monthly medical color</option>
                             </select>
-                            @include('alerts.feedback', ['field' => 'Lenses_type'])
+                            @error('Lenses_type')
+                                <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
+                            @enderror
                         </div>
 
 
                         {{-- status --}}
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-4 @error('status') is-danger @enderror">
                             <label for="inputState">Status</label>
                             <select name="status" id="inputState" class="form-control">
                                 <option value="received"
@@ -92,7 +98,9 @@
                                     received
                                 </option>
                             </select>
-                            @include('alerts.feedback', ['field' => 'status'])
+                            @error('status')
+                                <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         {{-- price --}}

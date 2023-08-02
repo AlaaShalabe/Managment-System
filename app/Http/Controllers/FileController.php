@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Validation\Rule;
 use Stevebauman\Purify\Facades\Purify;
 
@@ -22,7 +23,9 @@ class FileController extends Controller
         if (!$files->isEmpty()) {
             return view('files.index', compact('files'));
         }
-        return redirect('/')->with('warning', 'No File yet! to add new File clicke ');
+        $message = Lang::get('messages.no_recorde', ['name' => 'files']);
+        $route = route('files.create');
+        return  redirect('/')->with(['warning' => $message, 'route' => $route]);
     }
 
     /**

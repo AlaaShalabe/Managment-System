@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'files'])
+@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'Users'])
 
 @section('content')
     <div class="content">
@@ -9,11 +9,11 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4 class="card-title "><strong>All files</strong> </h4>
+                                    <h4 class="card-title "><strong>All Users</strong> </h4>
                                     <p class="card-category"> Click on the<u> number </u> to view all bills .. </p>
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a href="{{ route('files.create') }}" class="btn btn-sm btn-primary">Add file</a>
+                                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">Add user</a>
                                 </div>
                             </div>
                         </div>
@@ -27,42 +27,45 @@
 
                                             </th>
                                             <th>
-                                                Phone
+                                                Name
                                             </th>
                                             <th>
                                                 Created at
                                             </th>
                                             <th>
-                                                Count of invoices
+                                                Role
                                             </th>
 
                                         </thead>
                                         <tbody>
-                                            @foreach ($files as $file)
+                                            @foreach ($users as $user)
                                                 <tr>
                                                     <td>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('files.files', $file) }}"> {{ $file->phone }}</a>
+                                                        {{ $user->name }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->created_at->format('D M Y') }}
+                                                        {{ $user->created_at->format('D M Y') }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->invoices->count() }}
+
+                                                        @if (!empty($user->getRoleNames()))
+                                                            @foreach ($user->getRoleNames() as $v)
+                                                                {{ $v }}
+                                                            @endforeach
+                                                        @endif
                                                     </td>
 
-                                                    <form action="{{ route('files.destroy', $file) }}" method="POST">
+                                                    <form action="{{ route('users.destroy', $user) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
                                                         <td class="td-actions text-right">
-                                                            @can('invoices-list')
-                                                                <a href="{{ route('files.files', $file) }}" rel="tooltip"
-                                                                    class="btn btn-info btn-sm btn-round btn-icon">
-                                                                    <i class="tim-icons icon-tv-2"></i>
-                                                                </a>
-                                                            @endcan
-                                                            <a href="{{ route('files.edit', $file) }}" rel="tooltip"
+                                                            <a href="{{ route('users.show', $user) }}" rel="tooltip"
+                                                                class="btn btn-info btn-sm btn-round btn-icon">
+                                                                <i class="tim-icons icon-tv-2"></i>
+                                                            </a>
+                                                            <a href="{{ route('users.edit', $user) }}" rel="tooltip"
                                                                 class="btn btn-success btn-sm btn-round btn-icon">
                                                                 <i class="tim-icons icon-pencil"></i>
                                                             </a>

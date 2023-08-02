@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'files'])
+@extends('layouts.app', ['activePage' => 'table', 'titlePage' => __('Table List'), 'pageSlug' => 'Roles'])
 
 @section('content')
     <div class="content">
@@ -9,11 +9,11 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4 class="card-title "><strong>All files</strong> </h4>
-                                    <p class="card-category"> Click on the<u> number </u> to view all bills .. </p>
+                                    <h4 class="card-title "><strong>All Roless</strong> </h4>
+
                                 </div>
                                 <div class="col-4 text-right">
-                                    <a href="{{ route('files.create') }}" class="btn btn-sm btn-primary">Add file</a>
+                                    <a href="{{ route('roles.create') }}" class="btn btn-sm btn-primary">Add role</a>
                                 </div>
                             </div>
                         </div>
@@ -27,42 +27,37 @@
 
                                             </th>
                                             <th>
-                                                Phone
+                                                Name
                                             </th>
                                             <th>
                                                 Created at
                                             </th>
                                             <th>
-                                                Count of invoices
+                                                Updated at
                                             </th>
 
                                         </thead>
                                         <tbody>
-                                            @foreach ($files as $file)
+                                            @foreach ($roles as $role)
                                                 <tr>
                                                     <td>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ route('files.files', $file) }}"> {{ $file->phone }}</a>
+                                                        {{ $role->name }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->created_at->format('D M Y') }}
+                                                        {{ $role->created_at->format('d M Y') }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->invoices->count() }}
+                                                        {{ $role->updated_at->format('d M Y') }}
                                                     </td>
 
-                                                    <form action="{{ route('files.destroy', $file) }}" method="POST">
+                                                    <form action="{{ route('roles.destroy', $role) }}" method="POST">
                                                         @csrf
                                                         @method('delete')
                                                         <td class="td-actions text-right">
-                                                            @can('invoices-list')
-                                                                <a href="{{ route('files.files', $file) }}" rel="tooltip"
-                                                                    class="btn btn-info btn-sm btn-round btn-icon">
-                                                                    <i class="tim-icons icon-tv-2"></i>
-                                                                </a>
-                                                            @endcan
-                                                            <a href="{{ route('files.edit', $file) }}" rel="tooltip"
+
+                                                            <a href="{{ route('roles.edit', $role) }}" rel="tooltip"
                                                                 class="btn btn-success btn-sm btn-round btn-icon">
                                                                 <i class="tim-icons icon-pencil"></i>
                                                             </a>

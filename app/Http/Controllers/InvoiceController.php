@@ -12,6 +12,9 @@ class InvoiceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:invoice-list|invoice-update|invoice-delete', ['only' => ['show']]);
+        $this->middleware('permission:invoice-update', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:invoice-delete', ['only' => ['destroy']]);
     }
 
     public function create(File $file)

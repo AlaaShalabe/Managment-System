@@ -20,6 +20,22 @@
                                 <p>{{ _('Files') }}</p>
                             </a>
                         </li>
+                        @can('user-list')
+                            <li @if ($pageSlug == 'Users') class="active " @endif>
+                                <a href="{{ route('users.index') }}">
+                                    <i class=" tim-icons icon-single-02"></i>
+                                    <p>{{ _('Users') }}</p>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('role-list')
+                            <li @if ($pageSlug == 'Roles') class="active " @endif>
+                                <a href="{{ route('roles.index') }}">
+                                    <i class=" tim-icons icon-badge"></i>
+                                    <p>{{ _('Roles') }}</p>
+                                </a>
+                            </li>
+                        @endcan
                         {{-- <li @if ($pageSlug == 'invoice') class="active " @endif>
                             <a href="{{ route('invoices.index') }}">
                                 <i class="tim-icons icon-money-coins"></i>
