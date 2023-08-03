@@ -5,7 +5,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="title">{{ _('Create File') }}</h5>
+                    <h5 class="title">{{ _('Create User') }}</h5>
                 </div>
                 <form method="post" action="{{ route('users.store') }}" autocomplete="off">
                     <div class="card-body">
@@ -61,6 +61,7 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-fill btn-primary">{{ _('Save') }}</button>
+                        <a href="{{ route('users.index') }}" class="btn btn-fill btn-primary">{{ _('Cancel') }}</a>
                     </div>
                 </form>
             </div>

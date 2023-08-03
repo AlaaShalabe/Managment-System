@@ -36,12 +36,6 @@
                                 </a>
                             </li>
                         @endcan
-                        {{-- <li @if ($pageSlug == 'invoice') class="active " @endif>
-                            <a href="{{ route('invoices.index') }}">
-                                <i class="tim-icons icon-money-coins"></i>
-                                <p>{{ _('Invoices') }}</p>
-                            </a>
-                        </li> --}}
                     </ul>
                 </div>
             </li>

@@ -10,7 +10,6 @@
                             <div class="row">
                                 <div class="col-8">
                                     <h4 class="card-title "><strong>All Users</strong> </h4>
-                                    <p class="card-category"> Click on the<u> number </u> to view all bills .. </p>
                                 </div>
                                 <div class="col-4 text-right">
                                     <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">Add user</a>

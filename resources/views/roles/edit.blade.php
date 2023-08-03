@@ -42,9 +42,10 @@
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-fill btn-primary">{{ _('Save') }}</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-fill btn-primary">{{ _('Cancel') }}</a>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 @endsection

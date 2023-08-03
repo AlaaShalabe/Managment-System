@@ -13,20 +13,20 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        // $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-        // $this->middleware('permission:user-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
     public function index(Request $request)
     {
-        $users = User::where('id', '>', 1)->orderBy('id', 'DESC')->paginate(5);
+        $users = User::orderBy('id', 'DESC')->paginate(5);
         $roles = Role::all();
-        if (!($roles->count() > 1)) {
+        if (!$roles) {
             $message = Lang::get('messages.create', ['name' => 'Roles']);
             $route = route('roles.create');
             return  redirect('/')->with(['warning' => $message, 'route' => $route]);
-        } elseif ($users->count() > 1) {
+        } elseif ($users) {
 
             return view('users.index', compact('users'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -38,7 +38,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = Role::where('id', '>', 1)->pluck('name', 'name')->all();
+        $roles = Role::pluck('name', 'name')->all();
         return view('users.create', compact('roles'));
     }
 

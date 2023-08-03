@@ -20,8 +20,8 @@ class RoleController extends Controller
     }
     public function index(Request $request)
     {
-        $roles = Role::where('id', '>', '1')->orderBy('id', 'DESC')->paginate(5);
-        if ($roles->count() > 1) {
+        $roles = Role::orderBy('id', 'DESC')->paginate(5);
+        if ($roles) {
             return view('roles.index', compact('roles'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
         }
@@ -47,15 +47,6 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')->withStatus(__('Role created successfully.'));
     }
-    // public function show(Role $role)
-    // {
-    //     $role = Role::find($role);
-    //     $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
-    //         ->where("role_has_permissions.role_id", $role)
-    //         ->get();
-
-    //     return view('roles.show', compact('role', 'rolePermissions'));
-    // }
 
     public function edit(Role $role)
     {
