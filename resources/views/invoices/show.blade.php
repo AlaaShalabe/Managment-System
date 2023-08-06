@@ -12,8 +12,8 @@
                                 <form action="{{ route('invoices.destroy', $invoice) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-sm btn btn-danger animation-on-hover"
-                                        type="submit">Delete</button>
+                                    <button class="btn btn-sm btn btn-danger animation-on-hover" type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this {{ $invoice->name }} ?')">Delete</button>
                                     <a href="{{ route('invoices.edit', $invoice) }}" class="btn btn-sm btn-success">Edit</a>
 
                                 </form>
@@ -102,22 +102,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-8">
-                                {{-- <h4 class="card-title ">All invoices</h4>
-                                <p class="card-category"> Here is a subtitle for this table</p> --}}
-                                {{-- <h4 class="card-title">Users</h4> --}}
-                            </div>
-
-                            <div class="col-4 text-right">
-
-
-                            </div>
-
-
-                        </div>
-
+                    <div class="typography-line">
+                        <h4>
+                            <span>Created at</span>{{ $invoice->created_at->format('d M Y') }}
+                        </h4>
+                    </div>
+                    <div class="typography-line">
+                        <h4>
+                            <span>Updated at</span>{{ $invoice->updated_at->format('d M Y') }}
+                        </h4>
                     </div>
                 </div>
             </div>

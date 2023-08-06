@@ -57,7 +57,6 @@
                                 <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
                             @enderror
                         </div>
-
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-fill btn-primary">{{ _('Save') }}</button>

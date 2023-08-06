@@ -9,12 +9,51 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-8">
-                                    <h4 class="card-title "><strong>{{ $file->invoices->count() }} bill for phone number<u>
+                                    <h4 class="card-title "><strong><u>
                                                 {{ $file->phone }} </u></strong>
                                     </h4>
-
                                 </div>
                             </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"></th>
+                                        <th>Phone</th>
+                                        <th>Count of invoices</th>
+                                        <th>Careted at</th>
+                                        <th>updated at</th>
+                                        <th class="text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td>{{ $file->phone }}</td>
+                                        <td>{{ $file->invoices->count() }}</td>
+                                        <td>{{ $file->created_at->format('d M Y') }}</td>
+                                        <td>{{ $file->updated_at->format('d M Y') }}</td>
+                                        <td class="td-actions text-right">
+                                            <form action="{{ route('files.destroy', $file) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                @can('invoices-delete')
+                                                    <button class="btn btn-danger btn-fab btn-icon btn-round btn-sm"
+                                                        onclick="return confirm('Are you sure you want to delete this {{ $file->phone }}?')"
+                                                        type="submit">
+                                                        <i class="tim-icons icon-trash-simple"> </i>
+                                                    </button>
+                                                @endcan
+                                                <a href="{{ route('files.edit', $file) }}" rel="tooltip"
+                                                    class="btn btn-success btn-sm btn-round btn-icon">
+                                                    <i class="tim-icons icon-pencil"></i>
+                                                </a>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="card-body">
                             @include('alerts.success')
@@ -22,26 +61,37 @@
                                 <form action="{{ route('invoices.destroyMultiple') }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <div class="col-12 text-right">
-                                        @can('invoices-delete')
-                                            <button class="btn btn-danger btn-fab btn-icon btn-round" type="submit">
-                                                <i class="tim-icons icon-trash-simple"> </i>
-                                            </button>
-                                        @endcan
-                                        <a href="{{ route('invoices.create', $file) }}"
-                                            class="btn btn-primary btn-fab btn-icon btn-round">
-                                            <i class="tim-icons icon-simple-add"> </i>
-                                        </a>
-                                    </div>
+                                    <table class="table " style="background-color:#f2d3ed; border-radius: 10px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Invoices</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="text-right">
+                                                </th>
+                                                <th class="td-actions text-right">
+                                                    <div class="col-12 text-right">
+                                                        @can('invoices-delete')
+                                                            <button class="btn btn-danger btn-fab btn-icon btn-round"
+                                                                type="submit">
+                                                                <i class="tim-icons icon-trash-simple"> </i>
+                                                            </button>
+                                                        @endcan
+                                                        <a href="{{ route('invoices.create', $file) }}"
+                                                            class="btn btn-primary btn-fab btn-icon btn-round">
+                                                            <i class="tim-icons icon-simple-add"> </i>
+                                                        </a>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                    </table>
                                     <table class="table">
                                         <thead class=" text-primary">
-
                                             <th>
 
                                             </th>
-                                            <th>
-                                                Created_at
-                                            </th>
+
                                             <th>
                                                 Name
                                             </th>
@@ -54,6 +104,10 @@
                                             <th>
                                                 Price
                                             </th>
+                                            <th>
+                                                Created_at
+                                            </th>
+                                            <th class="text-right">Actions</th>
                                         </thead>
                                         <tbody>
                                             @foreach ($file->invoices as $invoice)
@@ -68,10 +122,7 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td>
 
-                                                        {{ $invoice->created_at->format('D M Y') }}
-                                                    </td>
                                                     <td>
 
                                                         {{ $invoice->name }}
@@ -85,7 +136,10 @@
                                                     <td class="text-primary">
                                                         {{ $invoice->price }}
                                                     </td>
+                                                    <td>
 
+                                                        {{ $invoice->created_at->format('d M Y') }}
+                                                    </td>
                                                     <td class="td-actions text-right">
                                                         @can('invoices-list')
                                                             <a href="{{ route('invoices.show', $invoice) }}" rel="tooltip"

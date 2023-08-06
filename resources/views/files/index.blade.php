@@ -30,11 +30,12 @@
                                                 Phone
                                             </th>
                                             <th>
-                                                Created at
-                                            </th>
-                                            <th>
                                                 Count of invoices
                                             </th>
+                                            <th>
+                                                Created at
+                                            </th>
+                                            <th class="text-right">Actions</th>
 
                                         </thead>
                                         <tbody>
@@ -46,10 +47,10 @@
                                                         <a href="{{ route('files.files', $file) }}"> {{ $file->phone }}</a>
                                                     </td>
                                                     <td>
-                                                        {{ $file->created_at->format('D M Y') }}
+                                                        {{ $file->invoices->count() }}
                                                     </td>
                                                     <td>
-                                                        {{ $file->invoices->count() }}
+                                                        {{ $file->created_at->format('D M Y') }}
                                                     </td>
 
                                                     <form action="{{ route('files.destroy', $file) }}" method="POST">
@@ -67,7 +68,8 @@
                                                                 <i class="tim-icons icon-pencil"></i>
                                                             </a>
                                                             <button type="submit" rel="tooltip"
-                                                                class="btn btn-danger btn-sm btn-round btn-icon">
+                                                                class="btn btn-danger btn-sm btn-round btn-icon"
+                                                                onclick="return confirm('Are you sure you want to delete this {{ $file->phone }}?')">
                                                                 <i class="tim-icons icon-simple-remove"></i>
                                                             </button>
                                                         </td>

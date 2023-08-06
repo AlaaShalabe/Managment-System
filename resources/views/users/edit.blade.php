@@ -32,13 +32,13 @@
                         {{-- Role --}}
                         <div class="form-group col-md-3 @error('roles_name')is-danger @enderror">
                             <label>{{ _('Role') }}</label>
-                            @foreach ($roles as $role)
-                                <select name="roles_name[]" class="form-control" multiple>
+                            <select name="roles_name[]" class="form-control" multiple>
+                                @foreach ($roles as $role)
                                     <option value="{{ $role }}"
                                         {{ in_array($role, $userRole) ? 'selected' : '' }}>{{ $role }}
                                     </option>
-                                </select>
-                            @endforeach
+                                @endforeach
+                            </select>
                             @error('roles_name')
                                 <span style="color:#ff8d72; font-size:0.3cm ">{{ $message }}</span>
                             @enderror

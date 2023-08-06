@@ -12,8 +12,8 @@
                                 <form action="{{ route('users.destroy', $user) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-sm btn btn-danger animation-on-hover"
-                                        type="submit">Delete</button>
+                                    <button class="btn btn-sm btn btn-danger animation-on-hover" type="submit"
+                                        onclick="return confirm('Are you sure you want to delete this {{ $user->name }} ?')">Delete</button>
                                     <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-success">Edit</a>
 
                                 </form>
@@ -54,6 +54,11 @@
                     <div class="typography-line">
                         <h4>
                             <span>Created at</span>{{ $user->created_at->format('d M Y') }}
+                        </h4>
+                    </div>
+                    <div class="typography-line">
+                        <h4>
+                            <span>Updated at</span>{{ $user->updated_at->format('d M Y') }}
                         </h4>
                     </div>
                     <div class="card-header">

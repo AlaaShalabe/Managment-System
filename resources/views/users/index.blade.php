@@ -69,7 +69,8 @@
                                                                 <i class="tim-icons icon-pencil"></i>
                                                             </a>
                                                             <button type="submit" rel="tooltip"
-                                                                class="btn btn-danger btn-sm btn-round btn-icon">
+                                                                class="btn btn-danger btn-sm btn-round btn-icon"
+                                                                onclick="return confirm('Are you sure you want to delete this user {{ $user->name }} ?')">
                                                                 <i class="tim-icons icon-simple-remove"></i>
                                                             </button>
                                                         </td>

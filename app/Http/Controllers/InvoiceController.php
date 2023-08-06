@@ -81,7 +81,7 @@ class InvoiceController extends Controller
         $invoice->glasses_type = $request->input('glasses_type');
         $invoice->save();
 
-        return redirect()->route('files.files')->withStatus(__('invoice successfully updated.'));
+        return redirect()->route('files.files', $invoice)->withStatus(__('invoice successfully updated.'));
     }
 
     public function destroy(Invoice $invoice, File $file)
